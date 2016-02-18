@@ -46,6 +46,21 @@ public enum SkinAttrType
                 }
 
             }
+        },TEXT("text")
+        {
+            @Override
+            public void apply(View view, String resName)
+            {
+                if (view instanceof TextView)
+                {
+                    String text = getResourceManager().getStringByName(resName);
+
+                    if (TextUtils.isEmpty(text))
+                        return;
+                    ((TextView) view).setText(text);
+                }
+
+            }
         };
 
     String attrType;

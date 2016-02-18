@@ -14,6 +14,7 @@ public class ResourceManager
 {
     private static final String DEFTYPE_DRAWABLE = "drawable";
     private static final String DEFTYPE_COLOR = "color";
+    private static final String DEFTYPE_VALUES = "string";
     private Resources mResources;
     private String mPluginPackageName;
     private String mSuffix;
@@ -47,6 +48,23 @@ public class ResourceManager
             }
         }
     }
+
+    public String getStringByName(String name)
+    {
+        try {
+            name = appendSuffix(name);
+            L.e("name = " + name);
+            return mResources.getString(mResources.getIdentifier(name, DEFTYPE_VALUES, mPluginPackageName));
+        } catch (Resources.NotFoundException e) {
+            try {
+                return mResources.getString(mResources.getIdentifier(name, DEFTYPE_VALUES, mPluginPackageName));
+            } catch (Resources.NotFoundException e2) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+    }
+
 
     public int getColor(String name)
     {
